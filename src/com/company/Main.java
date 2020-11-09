@@ -74,17 +74,12 @@ public class Main {
                 if(steps % STEPA==0 || steps % STEPB==0) {///THEN FURTHER VALIDATE THAT THE NUMBER OF STEPS IS A FACTOR OF TH BOTH OF THE STEPS ( not including a step fo one as forms a single pattern so all odd numbers wl hve 1 added to last permut) otherwise it wont be perfectly divided by such and we wl have to miitigate such.
                     int largeREM = steps % Math.max(STEPA, STEPB);
                     if( largeREM % Math.min(STEPA,STEPB) == 0)  {///if the remainder of divison of larger is dividible by smaller
-                        ///after some validation:
-                        if (Math.min(STEPA, STEPB) > 1) {///todo ths test fr knowing if to do odd is wrong
-                            ///todo we should always minus largerem either way , prolly remove all these
-                            System.out.println(" sth ");
-                            if(largeREM<1 )return  computePermuts(steps, STEPA, STEPB); ///the combinations are pretty straight forward
-                            return computePermuts(steps-largeREM,STEPA, STEPB)+1; ///this posible as we can repeat last pattenr with trailling 1s
-                        } else {///for this case is a test for odd and even as large rem will always be less or equal to 1 as all nos are divisible by 1
-                            System.out.println(" odd ");
-
-                            if(steps%2==0) return  computePermuts(steps, STEPA, STEPB); ///the combinations are pretty straight forward
-                            return computePermuts(steps-1, STEPA, STEPB)+1; ///this posible as we can use trailing pattner of the smaller steps for the remainder
+                        // the trailing  non divisibles by smaller cause a  slight problem wch should be solved with the below modificaiton
+                        if(largeREM<1 )return  computePermuts(steps, STEPA, STEPB); ///the combinations are pretty straight forward
+                        else{////AS THINK ABOUT IT, assume u have the traIling 1after combination say consider 23 over 5 and 1. u remain wth 3 after ths combination, it oculd b inserted in any  ofset  within th space ofseting th fited one  or being in th e middle of it  any of its steps and is like  as if padded with 1s and th othe rnumber is the number so  i cross multiply each side  so to asume each side can fith onto space of th other
+                             return computePermuts(steps-largeREM,STEPA, STEPB)
+                             + factorial(steps/Math.max(STEPA,STEPB)+largeREM/Math.min(STEPA,STEPB))
+                                 /(factorial(steps/Math.max(STEPA,STEPB))*factorial(largeREM/Math.min(STEPA,STEPB)));
                         }
                     }else{
                         throw new UnsupportedOperationException(" not possible to jump with whole number of steps even when using smaller ones for the remainder portion ");
