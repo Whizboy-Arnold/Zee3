@@ -25,7 +25,7 @@ public class Main {
         int n=0;///
         int x=0;
         long permuts = 0;
-        while (Math.min(STEPA, STEPB) * n + Math.max(STEPA, STEPB) * m <= steps && (n * m) - m >= 0) {
+        while ((n * m) - m >= 0) {
             System.out.println(x);
             m = x;
             n = (-Math.max(STEPA, STEPB)  * m + steps) / Math.min(STEPA, STEPB);
