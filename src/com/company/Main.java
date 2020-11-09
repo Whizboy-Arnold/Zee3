@@ -41,6 +41,6 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        System.out.println("\n Number of ways it could jump: "+(forCombinations(20, 1,2)+1));///we just do for 20 then add 1 as th last step we can only do 1 as the number ahs to be even to satisfy the relationship k=1n+2m with whole numbers only
+        System.out.println("\n\n Number of ways it could jump is : "+(forCombinations(20, 1,2)+1));///we just do for 20 then add 1 as th last step we can only do 1 as the number ahs to be even to satisfy the relationship k=1n+2m with whole numbers only
     }
 }
