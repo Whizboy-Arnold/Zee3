@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
 
-    static long[] memo= new long[20];//this will greatly increase speed and avoid kurudia computing the same thing. we also cant use anyu number greater than 20 as we wl requrie big integer or other library for storing largerfactorials
+    static long[] memo= new long[100];//this will greatly increase speed and avoid kurudia computing the same thing. we also cant use anyu number greater than 20 as we wl requrie big integer or other library for storing largerfactorials
     static long factorial(int n){
         if (n == 0)
             return 1;
@@ -31,16 +31,17 @@ public class Main {
             n = (-Math.max(STEPA, STEPB)  * m + steps) / Math.min(STEPA, STEPB);
             long permut;
 
+            int sum = Math.min(STEPA, STEPB) * n + Math.max(STEPA, STEPB) * m;
             if(m==0 || n ==0){
-                System.out.println(" n " + n + " m " + m + " add " + (Math.min(STEPA, STEPB) * n + Math.max(STEPA, STEPB)  * m));
+                System.out.println(" n " + n + " m " + m + " add " + sum);
                 permut= 1;//// for th 2 cases it is similar all through
             }else {
-                if(Math.min(STEPA, STEPB) * n + Math.max(STEPA, STEPB) * m == steps ){
+                if(sum == steps ){
                     //compute number of permutations for that combination given by et he formula n!/k! but resolve on special case where one number cant wholly divide the rest
 
                     int largeREM = steps % (Math.max(STEPA, STEPB) * m);
 //
-                    System.out.println("__n " + n + " m " + m + " add " + (Math.min(STEPA, STEPB) * n + Math.max(STEPA, STEPB)  * m));
+                    System.out.println("__n " + n + " m " + m + " add " + sum);
                     permut = (factorial(m+n) / factorial(n)) / factorial(m);//modified instead of factorial(20)/(factorial(n)*factorial(k));
 
 
@@ -74,10 +75,14 @@ public class Main {
                     int largeREM = steps % Math.max(STEPA, STEPB);
                     if( largeREM % Math.min(STEPA,STEPB) == 0)  {///if the remainder of divison of larger is dividible by smaller
                         ///after some validation:
-                        if (Math.min(STEPA, STEPB) > 1) {
+                        if (Math.min(STEPA, STEPB) > 1) {///todo ths test fr knowing if to do odd is wrong
+                            ///todo we should always minus largerem either way , prolly remove all these
+                            System.out.println(" sth ");
                             if(largeREM<1 )return  computePermuts(steps, STEPA, STEPB); ///the combinations are pretty straight forward
                             return computePermuts(steps-largeREM,STEPA, STEPB)+1; ///this posible as we can repeat last pattenr with trailling 1s
                         } else {///for this case is a test for odd and even as large rem will always be less or equal to 1 as all nos are divisible by 1
+                            System.out.println(" odd ");
+
                             if(steps%2==0) return  computePermuts(steps, STEPA, STEPB); ///the combinations are pretty straight forward
                             return computePermuts(steps-1, STEPA, STEPB)+1; ///this posible as we can use trailing pattner of the smaller steps for the remainder
                         }
@@ -97,7 +102,7 @@ public class Main {
     public static void main(String[] args) {
 	    // write your code here
         long time= System.currentTimeMillis();
-        System.out.println("\n\n Number of ways it could jump is : "+(forCombinations(20, 2,1)));// eg for 20 values  2,4; 2,1; 8,4; AND 6,2  and variants with 1 and any other number  from 2 to 20  ARE APPLICABLE.  now no need for special case for 21 or others the algorithm supports all kinds as long as posible to be divided by so
+        System.out.println("\n\n Number of ways it could jump is : "+(forCombinations(23, 5,1)));// eg for 20 values  2,4; 2,1; 8,4; AND 6,2  and variants with 1 and any other number  from 2 to 20  ARE APPLICABLE.  now no need for special case for 21 or others the algorithm supports all kinds as long as posible to be divided by so
         // for this question values 21 , 1 and 2 are used. .
         System.out.println(" program has taken "+(System.currentTimeMillis()-time));/// memoizing reduces the time almost by half :) from ave of 40 ms to 20 ms on an i7
     }
