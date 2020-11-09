@@ -32,7 +32,7 @@ public class Main {
             n = -2*m +20;
             System.out.println(" n "+n+" m "+m +" add "+(n+2*m));
             //compute number of permutations for that combination given by et he formula n!/k!
-            long permut=factorial(20)/factorial(n)*factorial(m);
+            long permut=(factorial(20)/factorial(n))/factorial(m);//modified instead of factorial(20)/(factorial(n)*factorial(k));
             System.out.println(" whose permut is "+permut);
             permuts+=permut;
             x++;
